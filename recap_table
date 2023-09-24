@@ -1,0 +1,53 @@
+<?php
+$title = "Recap Table";
+
+// Include your database connection
+require_once('./lib/db_login.php');
+
+// Query to create the recap table
+$query = "SELECT c.title AS Category, GROUP_CONCAT(b.isbn) AS ISBNs, GROUP_CONCAT(b.title) AS Titles, GROUP_CONCAT(b.author) AS Authors, GROUP_CONCAT(b.price) AS Prices
+          FROM category c
+          LEFT JOIN books b ON c.id = b.category_id
+          GROUP BY c.title
+          ORDER BY c.title";
+
+// Execute the query
+$result = $db->query($query);
+
+if (!$result) {
+    die("Could not query the database: <br />" . $db->error . "<br>Query: " . $query);
+}
+
+// Fetch and display the results in a table
+$data = '';
+while ($row = $result->fetch_object()) {
+    $data .= '<tr>';
+    $data .= '<td>' . $row->Category . '</td>';
+    $data .= '<td>' . $row->ISBNs . '</td>';
+    $data .= '<td>' . $row->Titles . '</td>';
+    $data .= '<td>' . $row->Authors . '</td>';
+    $data .= '<td>' . $row->Prices . '</td>';
+    $data .= '</tr>';
+}
+
+// Close the database connection
+$db->close();
+?>
+
+<?php include('./layout.php') ?>
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h4>Recap Table</h4>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Category</th>
+            <th>ISBNs</th>
+            <th>Titles</th>
+            <th>Authors</th>
+            <th>Prices</th>
+        </tr>
+        <?= $data ?>
+    </table>
+</div>

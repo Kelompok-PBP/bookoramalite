@@ -72,7 +72,7 @@ while ($row = $result->fetch_object()) {
     $data .= '<td>' . $row->Title . '</td>';
     $data .= '<td>' . $row->Category . '</td>';
     $data .= '<td>' . $row->Price . '</td>';
-    $data .= '<td><a class="btn btn-warning btn-sm" href="update_book.php?id=' . $row->ID . '">Edit</a>&nbsp;<a class="btn btn-danger btn-sm" href="delete_book.php?id=' . $row->ID . '">Delete</a></td>';
+    $data .= '<td><a class="btn btn-primary btn-sm" href="detail_book.php?id=' . $row->ID . '">Detail</a>&nbsp;<a class="btn btn-warning btn-sm" href="update_book.php?id=' . $row->ID . '">Edit</a>&nbsp;<a class="btn btn-danger btn-sm" href="delete_book.php?id=' . $row->ID . '">Delete</a></td>';
     $data .= '</tr>';
     $i++;
 }
@@ -130,7 +130,7 @@ $db->close();
             <?= $categoryOptions ?>
         </select>
         <div class="w-25 d-flex">
-            <input name='q' type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" value="<?= isset($_GET['q']) ? htmlentities($_GET['q']) : '' ?>">
+            <input name='q' type="text" class="form-control" placeholder="search" aria-label="enter keyword" aria-describedby="basic-addon2" value="<?= isset($_GET['q']) ? htmlentities($_GET['q']) : '' ?>">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
             </div>

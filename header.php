@@ -19,19 +19,16 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Dashboard</a>
+          <a class="nav-link" href="index.php">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Books</a>
+          <a class="nav-link" href="recap_table.php">Books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Containers</a>
+          <a class="nav-link" href="view_orders.php">Orders</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Orders</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Categories</a>
+          <a class="nav-link" href="view_grafik.php">Categories</a>
         </li>
       </ul>
     </div>
