@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2023 at 11:29 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Sep 24, 2023 at 04:19 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bookoramalite`
+-- Database: `bookoramalite2`
 --
 
 -- --------------------------------------------------------
@@ -62,7 +63,6 @@ INSERT INTO `books` (`isbn`, `author`, `title`, `category_id`, `price`) VALUES
 ('0-672-31697-8', 'Michael Morgan', 'Java 2 for Professional Developers', 6, 34.99),
 ('0-672-31745-1', 'Thomas Down', 'Installing Debian GNU/Linux', 6, 24.99),
 ('0-672-31509-2', 'Pruitt, et al.', 'Teach Yourself GIMP in 24 Hours', 6, 24.99),
-('123123-123123', 'Kat', 'asdfasdf', 3, 100000000.00),
 ('0-672-31281-1', 'Clarita Michelle', 'Jakarta dan Debu Adalah Kawan', 3, 66.99);
 
 -- --------------------------------------------------------
@@ -72,16 +72,18 @@ INSERT INTO `books` (`isbn`, `author`, `title`, `category_id`, `price`) VALUES
 --
 
 CREATE TABLE `book_reviews` (
-  `isbn` char(13) NOT NULL,
-  `review` text DEFAULT NULL
+  `isbn` varchar(13) NOT NULL,
+  `review` text,
+  `review_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `book_reviews`
 --
 
-INSERT INTO `book_reviews` (`isbn`, `review`) VALUES
-('0-672-31697-8', 'Morgan\'s book is clearly written and goes well beyond \r\n                     most of the basic Java books out there.');
+INSERT INTO `book_reviews` (`isbn`, `review`, `review_id`) VALUES
+('0-672-31697-8', 'Morgan\'s book is clearly written and goes well beyond \r\n                     most of the basic Java books out there.', 1),
+('0-672-31697-8', 'Its a great book!', 2);
 
 -- --------------------------------------------------------
 
@@ -197,7 +199,7 @@ ALTER TABLE `books`
 -- Indexes for table `book_reviews`
 --
 ALTER TABLE `book_reviews`
-  ADD PRIMARY KEY (`isbn`);
+  ADD PRIMARY KEY (`review_id`);
 
 --
 -- Indexes for table `category`
@@ -232,6 +234,12 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `admin`
   MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `book_reviews`
+--
+ALTER TABLE `book_reviews`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `category`
