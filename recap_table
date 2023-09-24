@@ -1,40 +1,60 @@
 <?php
 $title = "Recap Table";
 
-// Include your database connection
 require_once('./lib/db_login.php');
 
-// Query to create the recap table
-$query = "SELECT c.title AS Category, GROUP_CONCAT(b.isbn) AS ISBNs, GROUP_CONCAT(b.title) AS Titles, GROUP_CONCAT(b.author) AS Authors, GROUP_CONCAT(b.price) AS Prices
+$query = "SELECT c.title AS Category, COUNT(b.isbn) AS BookCount
           FROM category c
           LEFT JOIN books b ON c.id = b.category_id
           GROUP BY c.title
           ORDER BY c.title";
 
-// Execute the query
 $result = $db->query($query);
 
 if (!$result) {
-    die("Could not query the database: <br />" . $db->error . "<br>Query: " . $query);
+    error_log($db->error);
+    die('Query failed');
 }
 
-// Fetch and display the results in a table
+$categoryCounts = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $categoryCounts[$row['Category']] = $row['BookCount'];
+}
+
+$bookQuery = "SELECT c.title AS category, b.isbn AS ISBN, b.title AS Title, b.author AS Author, b.price AS Price
+        FROM books b
+        JOIN category c ON b.category_id = c.id
+        ORDER BY c.title
+        ";
+
+$result = $db->query($bookQuery);
+
+if (!$result) {
+    error_log($db->error);
+    die('Could not query the database');
+}
+
 $data = '';
+$category = '';
+
 while ($row = $result->fetch_object()) {
     $data .= '<tr>';
-    $data .= '<td>' . $row->Category . '</td>';
-    $data .= '<td>' . $row->ISBNs . '</td>';
-    $data .= '<td>' . $row->Titles . '</td>';
-    $data .= '<td>' . $row->Authors . '</td>';
-    $data .= '<td>' . $row->Prices . '</td>';
+    if ($category != $row->category) {
+        $category = $row->category;
+        $data .= '<td rowspan="' . $categoryCounts[$category] . '">' . htmlspecialchars($row->category) . '</td>';
+    }
+    $data .= '<td>' . htmlspecialchars($row->ISBN) . '</td>';
+    $data .= '<td>' . htmlspecialchars($row->Title) . '</td>';
+    $data .= '<td>' . htmlspecialchars($row->Author) . '</td>';
+    $data .= '<td>' . htmlspecialchars($row->Price) . '</td>';
     $data .= '</tr>';
 }
 
-// Close the database connection
 $db->close();
-?>
 
-<?php include('./layout.php') ?>
+include('./layout.php');
+?>
 
 <div class="card mt-5">
     <div class="card-header">
@@ -43,10 +63,10 @@ $db->close();
     <table class="table table-striped">
         <tr>
             <th>Category</th>
-            <th>ISBNs</th>
-            <th>Titles</th>
-            <th>Authors</th>
-            <th>Prices</th>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
         </tr>
         <?= $data ?>
     </table>
