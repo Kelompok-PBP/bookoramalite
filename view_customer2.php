@@ -7,10 +7,10 @@
         <br>
         <table class="table table-striped">
             <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
                 <th>Action</th>
             </tr>
             <?php
