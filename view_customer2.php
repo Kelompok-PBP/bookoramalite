@@ -1,3 +1,4 @@
+<?php $title = "View Customer" ?>
 <?php include('./header.php') ?>
 <div class="card mt-5">
     <div class="card-header">Customers Data</div>
@@ -45,4 +46,4 @@
             ?>
     </div>
 </div>
-<?php include('./footer.php') ?>
+

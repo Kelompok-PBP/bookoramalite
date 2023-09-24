@@ -1,6 +1,6 @@
 <?php 
 $db_host = 'localhost';
-$db_database = 'bookorama';
+$db_database = 'bookoramalite';
 $db_username = 'root';
 $db_password = '';
 
