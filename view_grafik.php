@@ -49,21 +49,23 @@ $db->close();
 
 <?php include('./layout.php') ?>
 
-<div class="card mt-5">
-    <div class="card-header">
-        <h4>Total Book Data in Each Category</h4>
+<div class="d-flex justify-content-between">
+    <div class="card mt-5 mr-3" style="flex: 1; padding: 3px;">
+        <div class="card-header">
+            <h4>Total Book Data in Each Category</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="totalBooksChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div class="card-body">
-        <canvas id="totalBooksChart" width="400" height="200"></canvas>
-    </div>
-</div>
 
-<div class="card mt-5">
-    <div class="card-header">
-        <h4>Total Book Data That Has Been Ordered in Each Category</h4>
-    </div>
-    <div class="card-body">
-        <canvas id="totalOrderedBooksChart" width="400" height="200"></canvas>
+    <div class="card mt-5" style="flex: 1; padding: 3px;">
+        <div class="card-header">
+            <h4>Total Book Data That Has Been Ordered in Each Category</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="totalOrderedBooksChart" width="400" height="200"></canvas>
+        </div>
     </div>
 </div>
 
