@@ -1,15 +1,24 @@
 <?php $title = "View Customer" ?>
 <?php include('./layout.php') ?>
 <div class="card mt-5">
-    <div class="card-header">Customers Data</div>
-    <div class="card-body">
-        <a href="add_customer.php" class="btn btn-primary mb-4">+ Add Customer Data</a>
-        <br>
+    <div class="card-header d-flex justify-content-between">
+        <p>Test</p>
+        <div class="input-group mb-3 w-50">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Search</button>
+  </div>
+</div>
+    </div>
+    <!-- <div class="card-body">
+        <a href="add_customer.php" class="btn btn-primary mb-4">+ Add Customer Data</a> -->
+
+
         <table class="table table-striped">
             <tr>
                 <th>ISBN</th>
-                <th>Title</th>
                 <th>Author</th>
+                <th>Title</th>
                 <th>Price</th>
                 <th>Action</th>
             </tr>
@@ -18,7 +27,7 @@
             require_once('./lib/db_login.php');
 
             // Execute the query
-            $query = "SELECT customerid AS ID, name AS Nama, address AS Alamat, city AS Kota FROM customers ORDER BY customerid";
+            $query = "SELECT isbn AS ID, author AS Author, title AS Title, price as Price FROM books ORDER BY isbn";
             $result = $db->query($query);
 
             if (!$result) {
@@ -29,10 +38,10 @@
             $i = 1;
             while ($row = $result->fetch_object()) {
                 echo '<tr>';
-                echo '<td>' . $i . '</td>';
-                echo '<td>' . $row->Nama . '</td>';
-                echo '<td>' . $row->Alamat . '</td>';
-                echo '<td>' . $row->Kota . '</td>';
+                echo '<td>' . $row->ID . '</td>';
+                echo '<td>' . $row->Author . '</td>';
+                echo '<td>' . $row->Title . '</td>';
+                echo '<td>' . $row->Price . '</td>';
                 echo '<td><a class="btn btn-warning btn-sm" href="edit_customer.php?id=' . $row->ID . '">Edit</a>&nbsp;<a class="btn btn-danger btn-sm" href="confirm_delete_customer.php?id=' . $row->ID . '">Delete</a></td>';
                 echo '</tr>';
                 $i++;
